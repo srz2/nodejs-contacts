@@ -1,0 +1,37 @@
+const config = require('./config');
+const express = require('express');
+const mongoose = require('mongoose');
+const parser = require('body-parser');
+const app = express();
+
+mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWORD + "@cluster0-5398r.mongodb.net/" + config.MONGO.DATABASE + "?retryWrites=true&w=majority", {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    }).then(() => {
+        console.log('MongoDB Connected!');
+    }).catch(() => {
+        console.log('MongoDB Failed to connect!');
+        console.log(err);
+    });
+
+app.use(parser.json());
+
+const routeContacts = require('./routes/contacts');
+
+app.use(express.static('public'));
+
+app.use('/contacts', routeContacts);
+
+app.use((req, res, next) => {
+    console.log('404 Page Not Found');
+    res.status(404).send('404 Page Not Found!');
+});
+
+app.use((error, req, res, next) => {
+    console.log(error);
+    res.status(500).send('500 Server Error');
+});
+
+module.exports = app;
