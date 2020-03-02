@@ -17,10 +17,32 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/:contactId', (req, res, next) => {
+    Contact.find({_id: req.params.contactId})
+    .select('_id name')
+    .then(results => {
+        if (results.length > 0) {
+            res.status(200).json({
+                message: "Contact Found",
+                contacts: results
+            });
+        }
+        else {
+            res.status(200).json({
+                message: "Unable to find contact with given id"
+            })
+        }
+    })
+    .catch(err => {
+        console.log('Error: ' + err);
+    });
+});
+
 router.post('/add', (req, res, next) => {
     const newContact = new Contact({
         _id: mongoose.Types.ObjectId(),
-        name: req.body.name
+        name: req.body.name,
+        birthday: req.body.birthday
     });
 
     Contact.find({name: req.body.name}).exec()
@@ -35,7 +57,7 @@ router.post('/add', (req, res, next) => {
             .then(result => {
                 res.status(201).json({
                     message: "Successfully added new contact",
-                    contact: newContact
+                    contact: newContact._id
                 });
             })
             .catch(err => {
