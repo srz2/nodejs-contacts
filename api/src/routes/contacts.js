@@ -39,6 +39,7 @@ router.get('/:contactId', (req, res, next) => {
 });
 
 router.post('/add', (req, res, next) => {
+    console.log(req.body);
     const newContact = new Contact({
         _id: mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -79,6 +80,15 @@ router.post('/add', (req, res, next) => {
 
 router.delete('/:contactId', (req, res, next) => {
     const id = req.params.contactId;
+
+    // Check for valid ID
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        res.status(500).json({
+            message: "Invalid contact id",
+            GivenId: id
+        })
+    }
+
     Contact.find({_id: id}).exec()
     .then(results => {
         if (results.length > 0) {
