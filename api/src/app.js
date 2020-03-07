@@ -1,9 +1,11 @@
 const config = require('./config');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
 const app = express();
 
+// Connect to Database
 mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWORD + "@cluster0-5398r.mongodb.net/" + config.MONGO.DATABASE + "?retryWrites=true&w=majority", {
         useCreateIndex: true,
         useNewUrlParser: true,
@@ -16,6 +18,8 @@ mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWO
         console.log(err);
     });
 
+// Handle Cors
+app.use(cors());
 app.use(parser.json());
 
 const routeContacts = require('./routes/contacts');
