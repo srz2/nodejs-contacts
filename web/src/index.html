@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contacts</title>
+        <link rel="stylesheet" href="./css/index.css">
+    </head>
+    <body>
+        <h1>Welcome to the Contacts page</h1>
+
+        <div class="input">
+            <label>Full Name:</label>
+            <input type="text" id="newName" placeholder="Name">
+            <label>Birthday:</label>
+            <input type="date" id="newBirthday">
+            <button onclick="addContact();">Add New Contact</button>
+        </div>
+        <div class="input">
+            <label>Contact ID:</label>
+            <input type="text" id="contactId" placeholder="contactId">
+            <button onclick="deleteContact();">Delete Contact</button>
+        </div>
+
+        <div id="contacts">
+            
+        </div>
+
+        <script src="./js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+body {
+    background-color: #333;
+    color: #eee;
+}
+
+.indent {
+    padding-left: 30px;
+}
+
+.alt-highlight::selection {
+    background-color: rgb(255, 128, 128);
+}
