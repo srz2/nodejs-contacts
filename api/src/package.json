@@ -6,7 +6,6 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha",
     "start": "node server.js",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && rm coverage/*"
   },
   "repository": {
     "type": "git",
