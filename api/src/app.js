@@ -35,6 +35,10 @@ const routeContacts = require('./routes/contacts');
 
 app.use(express.static('public'));
 
+app.use('/', (req, res, next) => {
+    const link = 'http://' + config.IP_ADDRESS + ':' + config.PORT + '/help';
+    res.send('For help refer to the documenation <a target="_blank" href="' + link + '">View Documentation</a> ')
+})
 app.use('/contacts', routeContacts);
 
 app.use((req, res, next) => {
