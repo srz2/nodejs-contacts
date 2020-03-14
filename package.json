@@ -4,6 +4,7 @@
   "description": "Test Contacts",
   "main": "api/src/server.js",
   "scripts": {
+    "preinstall": "cp .env_sample .env",
     "test": "mocha",
     "start": "node api/src/server.js"
   },
