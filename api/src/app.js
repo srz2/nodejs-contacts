@@ -38,4 +38,9 @@ app.use((error, req, res, next) => {
     res.status(500).send('500 Server Error');
 });
 
+function stop() {
+    mongoose.connection.close();
+}
+
 module.exports = app;
+module.exports.stop = stop;
