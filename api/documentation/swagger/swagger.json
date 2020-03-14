@@ -1,0 +1,95 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "NodeJS Contacts API Documentation",
+    "description": "A simple contacts application which stores and creates contacts"
+  },
+  "servers": [
+    {
+      "description": "Development Server",
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contacts"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "Get all contacts in the database",
+        "description": "This gets all the contacts within the database. Each contact will return with the contactId and name. To get specific values for each contact, they need to be queried individually",
+        "responses": {
+          "200": {
+            "description": "My description of 200 response"
+          },
+          "500": {
+            "description": "Error occured gettings contacts"
+          }
+        },
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/contacts/{contactId}": {
+      "get": {
+        "summary": "Get a specific contact",
+        "description": "This gets a specific contact, given a contactId, which will return everything the database has for that contact",
+        "parameters": [
+          {
+            "name": "contactId",
+            "description": "This is the X character database id (HEX)",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Contacts"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a specific contact",
+        "parameters": [
+          {
+            "name": "contactId",
+            "description": "This is the X character database id (HEX)",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact Deleted"
+          }
+        },
+        "tags": [
+          "Contacts"
+        ]
+      }
+    },
+    "/contacts/add": {
+      "post": {
+        "summary": "Add a new contact",
+        "description": "This is how a new contact is added",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Contacts"
+        ]
+      }
+    }
+  }
+}

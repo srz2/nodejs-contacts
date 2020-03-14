@@ -3,7 +3,13 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 const app = express();
+
+// Swagger Documentation Setup
+const swaggerDocs = require('../documentation/swagger/swagger.json');
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/help", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Connect to Database
 mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWORD + "@cluster0-5398r.mongodb.net/" + config.MONGO.DATABASE + "?retryWrites=true&w=majority", {
