@@ -35,15 +35,13 @@ const routeContacts = require('./routes/contacts');
 
 app.use(express.static('public'));
 
-app.use('/', (req, res, next) => {
-    const link = 'http://' + config.IP_ADDRESS + ':' + config.PORT + '/help';
-    res.send('For help refer to the documenation <a target="_blank" href="' + link + '">View Documentation</a> ')
-})
 app.use('/contacts', routeContacts);
 
 app.use((req, res, next) => {
     console.log('404 Page Not Found');
-    res.status(404).send('404 Page Not Found!');
+    
+    const link = 'http://' + config.IP_ADDRESS + ':' + config.PORT + '/help';
+    res.status(404).send('For help refer to the documenation <a target="_blank" href="' + link + '">View Documentation</a> ')
 });
 
 app.use((error, req, res, next) => {
