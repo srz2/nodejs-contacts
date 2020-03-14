@@ -2,10 +2,10 @@
   "name": "nodejs-contacts",
   "version": "1.0.0",
   "description": "Test Contacts",
-  "main": "server.js",
+  "main": "api/src/server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha",
-    "start": "node server.js",
+    "test": "mocha",
+    "start": "node api/src/server.js"
   },
   "repository": {
     "type": "git",
