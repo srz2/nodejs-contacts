@@ -7,9 +7,12 @@ const swaggerUi = require('swagger-ui-express');
 const app = express();
 
 // Swagger Documentation Setup
+const swaggerOptions = {
+    customCss: '.swagger-ui .topbar { display: none }'
+}
 const swaggerDocs = require('../documentation/swagger/swagger.json');
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use("/help", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
+app.use("/help", swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
 
 // Connect to Database
 mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWORD + "@cluster0-5398r.mongodb.net/" + config.MONGO.DATABASE + "?retryWrites=true&w=majority", {
