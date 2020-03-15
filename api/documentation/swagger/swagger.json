@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
     "title": "NodeJS Contacts API Documentation",
@@ -44,7 +44,9 @@
             "description": "This is the X character database id (HEX)",
             "required": true,
             "in": "path",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -64,7 +66,9 @@
             "description": "This is the X character database id (HEX)",
             "required": true,
             "in": "path",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

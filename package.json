@@ -4,6 +4,7 @@
   "description": "Test Contacts",
   "main": "api/src/server.js",
   "scripts": {
+    "get-swagger": "mv ~/Downloads/openapi.json api/documentation/swagger/swagger.json",
     "preinstall": "cp .env_sample .env",
     "test": "mocha",
     "start": "node api/src/server.js"
