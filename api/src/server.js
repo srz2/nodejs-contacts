@@ -11,8 +11,10 @@ function stop() {
     server.close();
 }
 
-console.log('Listening on port ' + PORT);
-server.listen(PORT);
+console.log('Starting Server...');
+server.listen(PORT, () => {
+    console.log('Listening on port ' + PORT);
+});
 
 module.exports = server;
 module.exports.stop = stop;

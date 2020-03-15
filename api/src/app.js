@@ -22,7 +22,7 @@ mongoose.connect("mongodb+srv://" + config.MONGO.USER +":" + config.MONGO.PASSWO
         useUnifiedTopology: true
     }).then(() => {
         console.log('MongoDB Connected!');
-    }).catch(() => {
+    }).catch((err) => {
         console.log('MongoDB Failed to connect!');
         console.log(err);
     });
@@ -40,7 +40,7 @@ app.use('/contacts', routeContacts);
 app.use((req, res, next) => {
     console.log('404 Page Not Found');
     
-    const link = 'http://' + config.IP_ADDRESS + ':' + config.PORT + '/help';
+    const link = config.HOST + '/help';
     res.status(404).send('For help refer to the documenation <a target="_blank" href="' + link + '">View Documentation</a> ')
 });
 
