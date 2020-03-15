@@ -51,7 +51,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": null
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -93,6 +100,55 @@
         "tags": [
           "Contacts"
         ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResponsePayload": {
+        "description": "The standard response from the server",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "This will give a description of something which occured on the server or what they rest of the payload may contain"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/Contact"
+          }
+        }
+      },
+      "Name": {
+        "description": "This is the information for a name",
+        "properties": {
+          "first": {
+            "type": "string",
+            "description": "The first name of a person",
+            "example": "Billy"
+          },
+          "last": {
+            "type": "string",
+            "description": "This is the last name of a person",
+            "example": "Benson"
+          }
+        }
+      },
+      "Contact": {
+        "description": "This is the representation of a contact",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The database unique identification of a contact"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "The birthday of the contact",
+            "format": "date",
+            "example": "1970-01-01"
+          },
+          "name": {
+            "$ref": "#/components/schemas/Name"
+          }
+        }
       }
     }
   }
