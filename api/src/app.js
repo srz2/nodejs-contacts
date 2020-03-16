@@ -8,7 +8,8 @@ const app = express();
 
 // Swagger Documentation Setup
 const swaggerOptions = {
-    customCss: '.swagger-ui .topbar { display: none }'
+    customCss: '.swagger-ui .topbar { display: none }' +
+               '.try-out__btn {display: none}'
 }
 const swaggerDocs = require('../documentation/swagger/swagger.json');
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, swaggerOptions));
@@ -32,10 +33,12 @@ app.use(cors());
 app.use(parser.json());
 
 const routeContacts = require('./routes/contacts');
+const routeGroups = require('./routes/groups');
 
 app.use(express.static('public'));
 
 app.use('/contacts', routeContacts);
+app.use('/groups', routeGroups);
 
 app.use((req, res, next) => {
     console.log('404 Page Not Found');

@@ -8,12 +8,15 @@
   "servers": [
     {
       "description": "Development Server",
-      "url": "http://localhost:3000"
+      "url": "http://localhost"
     }
   ],
   "tags": [
     {
       "name": "Contacts"
+    },
+    {
+      "name": "Groups"
     }
   ],
   "paths": {
@@ -23,10 +26,10 @@
         "description": "This gets all the contacts within the database. Each contact will return with the contactId and name. To get specific values for each contact, they need to be queried individually",
         "responses": {
           "200": {
-            "description": "My description of 200 response"
+            "description": "Successfully retrieved all groups"
           },
           "500": {
-            "description": "Error occured gettings contacts"
+            "description": "Error occured gettings groups"
           }
         },
         "tags": [
@@ -41,7 +44,7 @@
         "parameters": [
           {
             "name": "contactId",
-            "description": "This is the X character database id (HEX)",
+            "description": "This is the 24 character database id (HEX)",
             "required": true,
             "in": "path",
             "schema": {
@@ -55,7 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": null
+                  "$ref": "#/components/schemas/ResponsePayload"
                 }
               }
             }
@@ -70,7 +73,7 @@
         "parameters": [
           {
             "name": "contactId",
-            "description": "This is the X character database id (HEX)",
+            "description": "This is the 24 character database id (HEX)",
             "required": true,
             "in": "path",
             "schema": {
@@ -94,11 +97,133 @@
         "description": "This is how a new contact is added",
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
           }
         },
         "tags": [
           "Contacts"
+        ]
+      }
+    },
+    "/groups": {
+      "get": {
+        "summary": "Gets all groups",
+        "description": "Get all Groups",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all groups"
+          }
+        },
+        "tags": [
+          "Groups"
+        ]
+      }
+    },
+    "/groups/{groupId}": {
+      "get": {
+        "summary": "Get a specific group",
+        "description": "Get a specific group with a given groupId",
+        "parameters": [
+          {
+            "name": "groupId",
+            "description": "This is the 24 character database id (HEX)",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved a group"
+          },
+          "500": {
+            "description": "Failed to retrieve group"
+          }
+        },
+        "tags": [
+          "Groups"
+        ]
+      },
+      "patch": {
+        "summary": "Update the contacts list within the group",
+        "description": "A group is made up of a list of contacts. Sending a patch will replace the contacts list which the group represents",
+        "parameters": [
+          {
+            "name": "groupId",
+            "description": "This is the 24 character database id (HEX)",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully patched the group"
+          },
+          "500": {
+            "description": "Failed to update the group"
+          }
+        },
+        "tags": [
+          "Groups"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a specific group",
+        "description": "Delete a specific group with a given groupId",
+        "parameters": [
+          {
+            "name": "groupId",
+            "description": "This is the 24 character database id (HEX)",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted specified group"
+          },
+          "500": {
+            "description": "Unknown error occured"
+          }
+        },
+        "tags": [
+          "Groups"
+        ]
+      }
+    },
+    "/groups/add": {
+      "post": {
+        "summary": "Create a new group",
+        "description": "Create a new group",
+        "responses": {
+          "200": {
+            "description": "Successfully created a new group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Groups"
         ]
       }
     }
@@ -114,6 +239,27 @@
           },
           "contact": {
             "$ref": "#/components/schemas/Contact"
+          }
+        }
+      },
+      "ResponsePayloadAllGroups": {
+        "description": "The payload which is returned when all groups are queried",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Status message for the query",
+            "example": "Successfully retrieved all groups"
+          },
+          "count": {
+            "type": "integer",
+            "example": 5
+          },
+          "groups": {
+            "type": "array",
+            "description": "List of groups",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
           }
         }
       },
@@ -137,7 +283,8 @@
         "properties": {
           "id": {
             "type": "integer",
-            "description": "The database unique identification of a contact"
+            "description": "The database unique identification of a contact (24 Character HEX)",
+            "example": "5e5c9a627c7563633316c331"
           },
           "birthday": {
             "type": "string",
@@ -147,6 +294,28 @@
           },
           "name": {
             "$ref": "#/components/schemas/Name"
+          }
+        }
+      },
+      "Group": {
+        "description": "This is the information for a group",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The database unique identification of a group (24 Character HEX)",
+            "example": "5e5c9a627c7563633316c331"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the group",
+            "example": "My Cool Group"
+          },
+          "contacts": {
+            "type": "array",
+            "description": "A list of contacts",
+            "items": {
+              "$ref": "#/components/schemas/Contact"
+            }
           }
         }
       }

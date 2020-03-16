@@ -24,7 +24,7 @@ router.get('/:contactId', (req, res, next) => {
         if (results.length > 0) {
             res.status(200).json({
                 message: "Contact Found",
-                contacts: results
+                contacts: results[0]
             });
         }
         else {
